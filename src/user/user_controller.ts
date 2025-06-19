@@ -29,14 +29,12 @@ export async function updateBalance(req: Request, res: Response) {
     });
 
     if (!user) {
-      await transaction.rollback();
       throw new ApiError(404, 'User not found');
     }
 
     const newBalance = user.balance - amount;
 
     if (newBalance < 0) {
-      await transaction.rollback();
       throw new ApiError(400, "Not enough funds")
     }
 
@@ -46,10 +44,8 @@ export async function updateBalance(req: Request, res: Response) {
     await transaction.commit();
 
     res.json(user);
-  } catch (error: any) {
-    if (!(error instanceof ApiError)) {
-      await transaction.rollback();
-    }
+  } catch (error) {
+    await transaction.rollback();
     throw error;
   }
 }
