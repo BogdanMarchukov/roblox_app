@@ -5,6 +5,7 @@ import { ApiError } from './common/error';
 import { User } from './user/model';
 import { Sequelize } from 'sequelize-typescript';
 import { CronTask } from './cron/crone_model';
+import { initCron } from './cron/cron_service';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -34,6 +35,8 @@ const umzug = new Umzug({
 (async () => {
   await umzug.up();
 })();
+
+initCron();
 
 
 app.use(express.json());
