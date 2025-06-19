@@ -43,9 +43,10 @@ export async function updateBalance(req: Request, res: Response) {
 
     res.json(user);
   } catch (error: any) {
-    console.log(error.message);
-    await transaction.rollback();
-    res.status(500).json({ message: 'Internal server error' });
+    if (!(error instanceof ApiError)) {
+      await transaction.rollback();
+    }
+    throw error;
   }
 }
 
