@@ -11,6 +11,10 @@ export async function updateBalance(req: Request, res: Response) {
     throw new ApiError(400, 'Invalid amount');
   }
 
+  if (amount < 0) {
+    throw new ApiError(400, 'Invalid amount, min value: 0');
+  }
+
   if (isNaN(id)) {
     throw new ApiError(400, 'Invalid id');
   }

@@ -7,14 +7,19 @@ import { Sequelize } from 'sequelize-typescript';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const port = process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 5432;
+const username = process.env.DB_USER || 'postgres_user';
+const password = process.env.DB_PASSWORD || 'postgres_password';
+const database = process.env.DB_NAME || 'test';
+const host = process.env.DB_HOST || 'localhost';
 
 export const sequelize = new Sequelize({
   dialect: 'postgres',
-  host: 'localhost',
-  port: 5432,
-  username: 'postgres_user',
-  password: 'postgres_password',
-  database: 'test',
+  host,
+  port,
+  username,
+  password,
+  database,
   models: [User],
 });
 
