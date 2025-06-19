@@ -12,6 +12,12 @@ const tasks = [
 
 let CURRENT_SLEEP_MS = 0;
 
+
+export function initCron() {
+  tasks.forEach(publishTask)
+  retry();
+}
+
 function updateSleepMs(ms?: number) {
   const maxSleep = 2000;
 
@@ -32,10 +38,6 @@ function publishTask(task: { name: string, interval: number }) {
   }, task.interval)
 }
 
-export function initCron() {
-  tasks.forEach(publishTask)
-  retry();
-}
 
 const sleep = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
@@ -67,7 +69,7 @@ async function tryRunTask(): Promise<void> {
 
     await transaction.commit();
 
-    await sleep(10000);
+    await sleep(2 * 60 * 1000);
 
     await task.update({
       status: 'finished',
