@@ -4,6 +4,7 @@ import { updateBalance } from './user/user_controller';
 import { ApiError } from './common/error';
 import { User } from './user/model';
 import { Sequelize } from 'sequelize-typescript';
+import { CronTask } from './cron/crone_model';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -20,7 +21,7 @@ export const sequelize = new Sequelize({
   username,
   password,
   database,
-  models: [User],
+  models: [User, CronTask],
 });
 
 const umzug = new Umzug({
