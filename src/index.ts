@@ -6,6 +6,7 @@ import { User } from './user/model';
 import { Sequelize } from 'sequelize-typescript';
 import { CronTask } from './cron/crone_model';
 import { initCron } from './cron/cron_service';
+import { getActiveTasks } from './cron/crone_contloller';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -44,6 +45,8 @@ app.use(express.json());
 app.get('/', (req: Request, res: Response) => {
   res.send('init express');
 });
+
+app.get('/tasks', getActiveTasks);
 
 app.patch('/users/:id/balance', updateBalance);
 
