@@ -8,6 +8,7 @@ npm install
 docker-compose up -d // запуск БД
 npm run build
 npm run start
+npm run test // нагрузочное тестирование, требует локальной установке https://github.com/grafana/k6
 ```
 3. полный запуск в 5 экземплярах, порты не проброшены так-как нужен NGINX
 ``` bash
